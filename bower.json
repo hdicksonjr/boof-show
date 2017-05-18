@@ -1,0 +1,24 @@
+{
+  "name": "boof-show",
+  "description": "A media presentation tool for showing off all your pics.",
+  "main": "boof-show.html",
+  "authors": [
+    "Henry Dickson"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "custom-element"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0"
+  }
+}
