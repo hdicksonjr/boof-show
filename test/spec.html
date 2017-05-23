@@ -1,0 +1,76 @@
+
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="test-data.js"></script>
+
+  <link rel="import" href="../boof-show.html">
+</head>
+
+<body>
+  <test-fixture id="element">
+    <template>
+      <boof-show></boof-show>
+    </template>
+  </test-fixture>
+</body>
+<script>
+  var boofShow;
+  describe('boof-show', function() {
+    beforeEach(function() {
+      boofShow = fixture('element');
+    });
+    it('should be an element', function() {
+      expect(boofShow).to.be.an.instanceOf(HTMLElement);
+      expect(boofShow).to.be.not.an.instanceOf(HTMLUnknownElement);
+    });
+    it('should have currentSlide of 0', function() {
+      expect(boofShow.currentSlide).to.be.equal(0);
+    });
+    describe('attributeChangedCallback', function() {
+      beforeEach(function() {
+        boofShow = fixture('element');
+        boofShow.slides = testData;
+      });
+      it('makes current index visible if currentSlide', function() {
+        boofShow.attributeChangedCallback('current-slide', 0, 1);
+        var newSlideVisible = boofShow.querySelector(`div[index="1"]`).hasAttribute('hidden');
+        expect(newSlideVisible).to.be.false;
+      });
+    });
+    describe('createSlide', function() {
+      beforeEach(function() {
+        boofShow = fixture('element');
+        boofShow.slides = testData;
+      });
+      it('sets firstSlideCreated if not yet true', function() {
+        boofShow.firstSlideCreated = false;
+        var slideData = testData[0];
+        boofShow.createSlide(slideData, 0);
+        expect(boofShow.firstSlideCreated).to.be.true;
+      });
+      it('sets hidden attr on slide if not first slide', function() {
+        boofShow.firstSlideCreated = true;
+        var slideData = testData[0];
+        boofShow.createSlide(slideData, 1);
+        expect(boofShow.firstSlideCreated).to.be.true;
+        var slideDiv = boofShow.querySelector(`div[index="1"]`).hasAttribute('hidden')
+        expect(slideDiv).to.be.true;
+      });
+      it('always increments maxIndex', function() {
+        boofShow.maxIndex = 0;
+        var slideData = testData[0];
+        boofShow.createSlide(slideData, 1);
+        expect(boofShow.maxIndex).to.equal(1);
+      });
+    });
+  });
+
+</script>
+
+</html>
