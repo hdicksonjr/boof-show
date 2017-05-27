@@ -43,9 +43,8 @@ class BoofShow extends HTMLElement {
   }
 
   attributeChangedCallback(attr, oldVal, newVal) {
-    switch (attr) {
-      case 'current-slide':
-      var goingForward = newVal > oldVal ? true : false;
+    if (attr == 'current-slide') {
+      const goingForward = newVal > oldVal ? true : false;
       if (newVal == this.maxIndex - 1) {
         this.allSlidesLoaded = true;
       }
@@ -53,9 +52,9 @@ class BoofShow extends HTMLElement {
         this.querySelector(`div[index="${oldVal}"]`).setAttribute('hidden', true);
         this.querySelector(`div[index="${newVal}"]`).removeAttribute('hidden');
         if (goingForward && !this.allSlidesLoaded) {
-          var preLoadImg = this.querySelector(`div[index="${(parseInt(newVal) + 1)}"] img`);
+          const preLoadImg = this.querySelector(`div[index="${(parseInt(newVal) + 1)}"] img`);
           if (preLoadImg.dataset && preLoadImg.dataset.src) {
-            var src = preLoadImg.dataset.src;
+            const src = preLoadImg.dataset.src;
             preLoadImg.src = src;
           }
         }
@@ -64,16 +63,16 @@ class BoofShow extends HTMLElement {
   }
 
   connectedCallback() {
-    var backBtn = this.shadowRoot.querySelector('button.back-button');
+    const backBtn = this.shadowRoot.querySelector('button.back-button');
     backBtn.addEventListener('click', () => {
       if (this.currentSlide === 0) {
         return
       }
-      var count = this.getAttribute('current-slide') - 1;
+      let count = this.getAttribute('current-slide') - 1;
       this.currentSlide -= 1;
       this.setAttribute('current-slide', this.currentSlide);
     });
-    var nextBtn = this.shadowRoot.querySelector('button.next-button');
+    const nextBtn = this.shadowRoot.querySelector('button.next-button');
     nextBtn.addEventListener('click', () => {
       if ((this.currentSlide + 1) >= this.maxIndex) {
         return
