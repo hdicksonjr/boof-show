@@ -15,7 +15,7 @@ class BoofShow extends HTMLElement {
 
   get template() {
     if(this._template) {
-      return this._templatea;
+      return this._template;
     } else {
       this._template = document.createElement('template');
     }
@@ -45,8 +45,21 @@ class BoofShow extends HTMLElement {
   attributeChangedCallback(attr, oldVal, newVal) {
     switch (attr) {
       case 'current-slide':
+      var goingForward = newVal > oldVal ? true : false;
+      if (newVal == this.maxIndex - 1) {
+        this.allSlidesLoaded = true;
+      }
+      if (oldVal) {
         this.querySelector(`div[index="${oldVal}"]`).setAttribute('hidden', true);
         this.querySelector(`div[index="${newVal}"]`).removeAttribute('hidden');
+        if (goingForward && !this.allSlidesLoaded) {
+          var preLoadImg = this.querySelector(`div[index="${(parseInt(newVal) + 1)}"] img`);
+          if (preLoadImg.dataset && preLoadImg.dataset.src) {
+            var src = preLoadImg.dataset.src;
+            preLoadImg.src = src;
+          }
+        }
+      }
     }
   }
 
@@ -78,11 +91,17 @@ class BoofShow extends HTMLElement {
     } else {
       slide.setAttribute('hidden', true);
     }
-    slide.setAttribute('index', index)
 
-    slide.innerHTML = `
-      <img src="${slideData.img}">
-      <p>${slideData.caption}</p>`
+    if (index < 2) {
+      slide.innerHTML = `
+        <img src="${slideData.img}">
+        <p>${slideData.caption}</p>`
+    } else {
+      slide.innerHTML = `
+        <img data-src="${slideData.img}" src="">
+        <p>${slideData.caption}</p>`
+    }
+    slide.setAttribute('index', index)
 
     this.appendChild(slide);
     this.maxIndex += 1;
