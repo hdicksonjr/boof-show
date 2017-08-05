@@ -16,6 +16,11 @@ This is a custom element for showing slideshows.
   <boof-show></boof-show>
 ```
 
+### How do I use this?
+
+Create a `<boof-show>` element and set the 'slides' property.
+Each slide can have an image and a caption.
+
 ## License
 
 MIT License
