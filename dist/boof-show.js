@@ -24,8 +24,8 @@ var BoofShow = function (_HTMLElement) {
     var _this = _possibleConstructorReturn(this, (BoofShow.__proto__ || Object.getPrototypeOf(BoofShow)).call(this));
 
     _this.currentSlide = 0;
+    _this.setAttribute('current-slide', 0);
     var root = _this.attachShadow({ mode: 'open' });
-
     root.appendChild(_this.template.content.cloneNode(true));
     return _this;
   }

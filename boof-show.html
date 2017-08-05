@@ -1,2 +1,9 @@
-<script src="boof-show.js"></script>
-<script src="index.js"></script>
+<script>
+  /*
+    Necessary until this known issue is resolved:
+    https://github.com/webcomponents/custom-elements#es5-vs-es2015
+  */
+  customElements.forcePolyfill = true
+</script>
+<script src="node_modules/@webcomponents/custom-elements/custom-elements.min.js"></script>
+<script src="dist/boof-show.js"></script>
