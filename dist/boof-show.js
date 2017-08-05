@@ -33,10 +33,22 @@ var BoofShow = function (_HTMLElement) {
   _createClass(BoofShow, [{
     key: 'attributeChangedCallback',
     value: function attributeChangedCallback(attr, oldVal, newVal) {
-      switch (attr) {
-        case 'current-slide':
+      if (attr == 'current-slide') {
+        var goingForward = newVal > oldVal ? true : false;
+        if (newVal == this.maxIndex - 1) {
+          this.allSlidesLoaded = true;
+        }
+        if (oldVal) {
           this.querySelector('div[index="' + oldVal + '"]').setAttribute('hidden', true);
           this.querySelector('div[index="' + newVal + '"]').removeAttribute('hidden');
+          if (goingForward && !this.allSlidesLoaded) {
+            var preLoadImg = this.querySelector('div[index="' + (parseInt(newVal) + 1) + '"] img');
+            if (preLoadImg.dataset && preLoadImg.dataset.src) {
+              var src = preLoadImg.dataset.src;
+              preLoadImg.src = src;
+            }
+          }
+        }
       }
     }
   }, {
@@ -72,9 +84,13 @@ var BoofShow = function (_HTMLElement) {
       } else {
         slide.setAttribute('hidden', true);
       }
-      slide.setAttribute('index', index);
 
-      slide.innerHTML = '\n      <img src="' + slideData.img + '">\n      <p>' + slideData.caption + '</p>';
+      if (index < 2) {
+        slide.innerHTML = '\n        <img src="' + slideData.img + '">\n        <p>' + slideData.caption + '</p>';
+      } else {
+        slide.innerHTML = '\n        <img data-src="' + slideData.img + '" src="">\n        <p>' + slideData.caption + '</p>';
+      }
+      slide.setAttribute('index', index);
 
       this.appendChild(slide);
       this.maxIndex += 1;
@@ -83,7 +99,7 @@ var BoofShow = function (_HTMLElement) {
     key: 'template',
     get: function get() {
       if (this._template) {
-        return this._templatea;
+        return this._template;
       } else {
         this._template = document.createElement('template');
       }

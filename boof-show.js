@@ -8,8 +8,8 @@ class BoofShow extends HTMLElement {
     super();
 
     this.currentSlide = 0;
+    this.setAttribute('current-slide', 0);
     const root = this.attachShadow({mode: 'open'});
-
     root.appendChild(this.template.content.cloneNode(true))
   }
 
@@ -106,5 +106,4 @@ class BoofShow extends HTMLElement {
     this.maxIndex += 1;
   }
 }
-
 customElements.define('boof-show', BoofShow);
