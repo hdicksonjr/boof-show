@@ -1,0 +1,20 @@
+<link rel="import" href="../boof-show.html"></link>
+
+<boof-show></boof-show>
+
+<script>
+  var request = new XMLHttpRequest();
+  request.open('GET', '/demo/slides.json', true);
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      var data = JSON.parse(request.responseText);
+      var boofShow = document.querySelector('boof-show');
+      boofShow.slides = data;
+    } else {
+      console.log('could not fetch slides');
+    }
+  };
+
+  request.send();
+</script>
