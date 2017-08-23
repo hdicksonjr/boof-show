@@ -1,20 +1,7 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/hdicksonjr/boof-show)
 # Boof Show
 
 This is a custom element for showing slideshows.
-
-<!--
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="boof-show.html">
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
-```html
-  <boof-show></boof-show>
-```
 
 ### How do I use this?
 
