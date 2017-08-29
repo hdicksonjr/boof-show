@@ -38,9 +38,16 @@
         boofShow.slides = testData;
       });
       it('makes current index visible if currentSlide', function() {
+        var newImg = boofShow.querySelector(`div[index="2"] img`);
+        var newImgDatasetSrc = newImg.dataset.src;
         boofShow.attributeChangedCallback('current-slide', 0, 1);
         var newSlideVisible = boofShow.querySelector(`div[index="1"]`).hasAttribute('hidden');
         expect(newSlideVisible).to.be.false;
+        expect(newImg.src == newImgDatasetSrc);
+      });
+      it('indicates allSlidesLoaded when last slide reached.', function() {
+        boofShow.attributeChangedCallback('current-slide', 1, 2);
+        expect(boofShow.allSlidesLoaded).to.be.true;
       });
     });
     describe('createSlide', function() {
@@ -72,5 +79,4 @@
   });
 
 </script>
-
 </html>
