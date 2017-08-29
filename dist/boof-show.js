@@ -38,7 +38,7 @@ var BoofShow = function (_HTMLElement) {
         if (newVal == this.maxIndex - 1) {
           this.allSlidesLoaded = true;
         }
-        if (oldVal) {
+        if (Number.isInteger(oldVal)) {
           this.querySelector('div[index="' + oldVal + '"]').setAttribute('hidden', true);
           this.querySelector('div[index="' + newVal + '"]').removeAttribute('hidden');
           if (goingForward && !this.allSlidesLoaded) {
